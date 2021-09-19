@@ -72,16 +72,13 @@ public class Bank {
 
     public boolean editName() {
         FixInput in = FixInput.getInstance();
-        while (true) {
-            String str = in.next();
-            if(str==null)return false;
-            if (str.length() <= 45 && str.length() >= 3) {
-                this.setName(str);
-                break;
-            } else {
-                System.out.println("Invalid input.");
-                return false;
-            }
+        String str = in.next();
+        if (str == null) return false;
+        if (str.length() <= 45 && str.length() >= 3) {
+            this.setName(str);
+        } else {
+            System.out.println("Invalid input.");
+            return false;
         }
         return true;
     }
@@ -99,33 +96,39 @@ public class Bank {
         return Objects.hash(id);
     }
 
+    public Bank() {
+    }
+
     public boolean editUsualCommission() {
         FixInput in = FixInput.getInstance();
-        while (true) {
-            String str = in.next();
-            if(str==null)return false;
-            if (Pattern.matches(Constants.PATTERN_DOUBLE, str) && Double.parseDouble(str) < 100) {
-                this.setUsualCommission(new BigDecimal(str));
-                break;
-            } else {
-                System.out.println("Invalid input.");
-                return false;
-            }
+        String str = in.next();
+        if (str == null) return false;
+        if (Pattern.matches(Constants.PATTERN_DOUBLE, str) && Double.parseDouble(str) < 100) {
+            this.setUsualCommission(new BigDecimal(str));
+        } else {
+            System.out.println("Invalid input.");
+            return false;
         }
+
         return true;
     }
+
+    public Bank(int id, String name, BigDecimal usualCommission, BigDecimal legalCommission) {
+        this.id = id;
+        this.name = name;
+        this.usualCommission = usualCommission;
+        this.legalCommission = legalCommission;
+    }
+
     public boolean editLegalCommission() {
         FixInput in = FixInput.getInstance();
-        while (true) {
-            String str = in.next();
-            if(str==null)return false;
-            if (Pattern.matches(Constants.PATTERN_DOUBLE, str) && Double.parseDouble(str) < 100) {
-                this.setLegalCommission(new BigDecimal(str));
-                break;
-            } else {
-                System.out.println("Invalid input.");
-                return false;
-            }
+        String str = in.next();
+        if (str == null) return false;
+        if (Pattern.matches(Constants.PATTERN_DOUBLE, str) && Double.parseDouble(str) < 100) {
+            this.setLegalCommission(new BigDecimal(str));
+        } else {
+            System.out.println("Invalid input.");
+            return false;
         }
         return true;
     }

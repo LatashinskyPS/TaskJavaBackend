@@ -7,6 +7,7 @@ import org.hibernate.SessionFactory;
 import org.hibernate.query.Query;
 
 import java.util.List;
+import java.util.Optional;
 
 public class BankRepository implements MyRepository<Bank> {
     private final SessionFactory sessionFactory = HibernateSessionFactory.getSessionFactory();
@@ -26,12 +27,12 @@ public class BankRepository implements MyRepository<Bank> {
     public Bank findByName(String name) {
         Session session = sessionFactory.getCurrentSession();
         session.beginTransaction();
-        Query<Bank> query = session.createQuery("from Bank b where b.name= :1");
-        query.setParameter(1, name);
-        Bank bank = query.getSingleResult();
+        Query<Bank> query = session.createQuery("from Bank b where b.name= :bankName");
+        query.setParameter("bankName", name);
+        Optional<Bank> bank = query.stream().findFirst();
         session.getTransaction().commit();
         session.close();
-        return bank;
+        return bank.orElse(null);
     }
 
     @Override

@@ -1,4 +1,4 @@
-package by.latashinsky.utils;
+package by.latashinsky.controllers;
 
 import by.latashinsky.controllers.BankController;
 import by.latashinsky.entities.Bank;
@@ -8,15 +8,17 @@ import org.junit.Assert;
 import org.junit.Test;
 
 public class BankControllerTest {
-
+    @Test
     public void create() {
         FixInput in = FixInput.getInstance();
         BankController bankController = BankController.getInstance();
         BankRepository bankRepository = BankRepository.getInstance();
-        in.nextLine("create testCreate 12.2 13.2");
-        bankController.create();
+        in.nextLine("testCreate 12.2 13.2");
         Bank bank = bankRepository.findByName("testCreate");
-        Assert.assertNotNull(bank);
-        Assert.assertEquals("testCreate",bank.getName() );
+        if (bank == null) {
+            bankController.create();
+        }
+        Assert.assertNotNull("банк не создан",bank);
+        Assert.assertEquals("testCreate", bank.getName());
     }
 }

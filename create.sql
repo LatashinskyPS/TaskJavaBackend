@@ -6,9 +6,9 @@ CREATE TABLE `users` (
 ) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 CREATE TABLE `banks` (
   `id` int NOT NULL AUTO_INCREMENT,
-  `name` char(45) NOT NULL,
-  `usual_commission` decimal(4,2) NOT NULL,
-  `legal_commission` decimal(4,2) NOT NULL,
+  `name` char(45) ,
+  `usual_commission` decimal(4,2) ,
+  `legal_commission` decimal(4,2) ,
   PRIMARY KEY (`id`),
   UNIQUE KEY `id_UNIQUE` (`id`),
 ) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
