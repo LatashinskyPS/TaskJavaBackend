@@ -4,6 +4,7 @@ import by.latashinsky.entities.Account;
 import by.latashinsky.entities.Bank;
 import by.latashinsky.entities.User;
 import by.latashinsky.factory.RepositoryFactory;
+import by.latashinsky.fix.FixInput;
 import by.latashinsky.models.Constants;
 import by.latashinsky.repositories.MyRepository;
 import by.latashinsky.user.interfaces.BankSettingsUI;
@@ -16,10 +17,8 @@ import java.util.regex.Pattern;
 public class SelectHelpUtil {
     public static Bank selectBank() {
         MyRepository<Bank> myRepository = (MyRepository<Bank>) new RepositoryFactory().getRepository(Bank.class);
-        myRepository.findAll().forEach(r -> System.out.println(r.getId() + ") " + r.getName().toUpperCase(Locale.ROOT)));
-        Scanner in = new Scanner(System.in).useDelimiter("\n");
+        FixInput in = FixInput.getInstance();
         while (true) {
-            System.out.println("Enter id of bank(0 to cancel):");
             String str = in.next();
             if (Pattern.matches(Constants.PATTERN_INT, str)) {
                 int index = Integer.parseInt(str);
@@ -30,16 +29,15 @@ public class SelectHelpUtil {
             }
             if ("0".equals(str)) break;
             System.out.println("Invalid input!");
+            return null;
         }
         return null;
     }
 
     public static User selectUser() {
         MyRepository<User> myRepository = (MyRepository<User>) new RepositoryFactory().getRepository(User.class);
-        myRepository.findAll().forEach(r -> System.out.println(r.getId() + ") " + r.getName().toUpperCase(Locale.ROOT)));
-        Scanner in = new Scanner(System.in).useDelimiter("\n");
+        FixInput in = FixInput.getInstance();
         while (true) {
-            System.out.println("Enter id of user(0 to cancel):");
             String str = in.next();
             if (Pattern.matches(Constants.PATTERN_INT, str)) {
                 int index = Integer.parseInt(str);
@@ -50,19 +48,15 @@ public class SelectHelpUtil {
             }
             if ("0".equals(str)) break;
             System.out.println("Invalid input!");
+            return null;
         }
         return null;
     }
 
     public static Account selectAccount() {
         MyRepository<Account> myRepository = (MyRepository<Account>) new RepositoryFactory().getRepository(Account.class);
-        myRepository.findAll().forEach(r -> System.out.println(
-                r.getId() + ")" +
-                        r.getBank().getName() + "->"
-                        + r.getUser().getName()));
-        Scanner in = new Scanner(System.in).useDelimiter("\n");
+        FixInput in = FixInput.getInstance();
         while (true) {
-            System.out.println("Enter id of account(0 to cancel):");
             String str = in.next();
             if (Pattern.matches(Constants.PATTERN_INT, str)) {
                 int index = Integer.parseInt(str);
@@ -73,6 +67,7 @@ public class SelectHelpUtil {
             }
             if ("0".equals(str)) break;
             System.out.println("Invalid input!");
+            return null;
         }
         return null;
     }
