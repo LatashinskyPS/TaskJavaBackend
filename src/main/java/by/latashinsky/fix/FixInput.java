@@ -20,12 +20,12 @@ public class FixInput {
 
     public void nextLine() {
         String str = in.next();
-        commands = str.split("[ ]*");
+        commands = str.split("[ ]+");
         currentSize = commands.length;
     }
 
     public void nextLine(String str) {
-        commands = str.split("[ ]*");
+        commands = str.split("[ ]+");
         currentSize = commands.length;
     }
 
@@ -33,6 +33,6 @@ public class FixInput {
         if (currentSize == 0) {
             return null;
         }
-        return commands[currentSize--];
+        return commands[commands.length - (currentSize--)];
     }
 }

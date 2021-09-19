@@ -2,10 +2,9 @@ package by.latashinsky.controllers;
 
 import by.latashinsky.entities.Bank;
 import by.latashinsky.factory.RepositoryFactory;
+import by.latashinsky.fix.FixInput;
 import by.latashinsky.repositories.MyRepository;
 import by.latashinsky.utils.Confirms;
-
-import java.util.Scanner;
 
 public class BankSettingsController extends BaseSettingsController<Bank> {
     private static BankSettingsController bankSettingsController;
@@ -22,9 +21,7 @@ public class BankSettingsController extends BaseSettingsController<Bank> {
     }
 
     public void update(Bank bank) {
-        System.out.println(bank);
-        System.out.println("Are you want to edit name(y/n)?");
-        Scanner in = new Scanner(System.in).useDelimiter("\n");
+        FixInput in = FixInput.getInstance();
         String str;
         while (true) {
             str = in.next();
@@ -35,9 +32,10 @@ public class BankSettingsController extends BaseSettingsController<Bank> {
                 bank.editName();
                 break;
             }
+            System.out.println("Invalid input!");
+            return;
         }
         while (true) {
-            System.out.println("Are you want to edit usual commission(y/n)?");
             str = in.next();
             if ("n".equals(str)) {
                 break;
@@ -46,9 +44,10 @@ public class BankSettingsController extends BaseSettingsController<Bank> {
                 bank.editUsualCommission();
                 break;
             }
+            System.out.println("Invalid input!");
+            return;
         }
         while (true) {
-            System.out.println("Are you want to legal commission(y/n)?");
             str = in.next();
             if ("n".equals(str)) {
                 break;
@@ -57,6 +56,8 @@ public class BankSettingsController extends BaseSettingsController<Bank> {
                 bank.editLegalCommission();
                 break;
             }
+            System.out.println("Invalid input!");
+            return;
         }
         myRepository.save(bank);
     }

@@ -8,31 +8,31 @@ public abstract class BaseShowAndCreateController<T> implements Controller {
 
     public boolean attemptToExecuteTheCommand(String s) {
         if (s == null) {
-            return false;
+            s = "help";
         }
         switch (s.toLowerCase(Locale.ROOT)) {
             case "show" -> {
                 show();
-                return false;
+                return true;
             }
             case "exit" -> {
                 return true;
             }
             case "create" -> {
                 create();
-                return false;
+                return true;
             }
             case "read" -> {
                 read();
-                return false;
+                return true;
             }
             case "help" -> {
                 help();
-                return false;
+                return true;
             }
             default -> {
                 System.out.println("Unknown command! Try help.");
-                return false;
+                return true;
             }
         }
     }

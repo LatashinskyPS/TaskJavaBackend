@@ -2,16 +2,10 @@ package by.latashinsky.controllers;
 
 import by.latashinsky.entities.Bank;
 import by.latashinsky.factory.RepositoryFactory;
-import by.latashinsky.models.Constants;
 import by.latashinsky.models.MyListConverter;
 import by.latashinsky.repositories.MyRepository;
 import by.latashinsky.user.interfaces.BankSettingsUI;
 import by.latashinsky.utils.SelectHelpUtil;
-import org.hibernate.sql.Select;
-
-import java.util.Locale;
-import java.util.Scanner;
-import java.util.regex.Pattern;
 
 public class BankController extends BaseShowAndCreateController<Bank> {
     private static BankController bankController;
@@ -28,17 +22,15 @@ public class BankController extends BaseShowAndCreateController<Bank> {
     }
 
     public void create() {
-        Scanner in = new Scanner(System.in).useDelimiter("\n");
         Bank bank = new Bank();
-        bank.editName();
-        bank.editLegalCommission();
-        bank.editUsualCommission();
-        myRepository.save(bank);
+        if (bank.editName() && bank.editLegalCommission() && bank.editUsualCommission())
+            myRepository.save(bank);
+        else System.out.println("Invalid input (name legalCommission usualCommission)");
     }
 
     public void read() {
         Bank bank = SelectHelpUtil.selectBank();
-        if(bank!=null)BankSettingsUI.run(bank);
+        if (bank != null) BankSettingsUI.run(bank);
     }
 
     public void show() {

@@ -34,29 +34,32 @@ public class TransactionController implements Controller {
     }
 
     public boolean attemptToExecuteTheCommand(String s) {
+        if (s == null) {
+            s = "help";
+        }
         switch (s.toLowerCase(Locale.ROOT)) {
             case "exit" -> {
                 return true;
             }
             case "help" -> {
                 help();
-                return false;
+                return true;
             }
             case "new" -> {
                 createTransaction();
-                return false;
+                return true;
             }
             case "show" -> {
                 show();
-                return false;
+                return true;
             }
             case "user" -> {
                 read();
-                return false;
+                return true;
             }
             default -> {
                 System.out.println("Unknown command! Try help.");
-                return false;
+                return true;
             }
         }
     }
@@ -71,12 +74,10 @@ public class TransactionController implements Controller {
     }
 
     public void createTransaction() {
-        System.out.println("Select account from:");
         Account accountFrom = SelectHelpUtil.selectAccount();
         if (accountFrom == null) {
             return;
         }
-        System.out.println("Select account to:");
         Account accountTo = SelectHelpUtil.selectAccount();
         if (accountTo == null) {
             return;
@@ -89,12 +90,13 @@ public class TransactionController implements Controller {
         String str;
         Scanner in = new Scanner(System.in).useDelimiter("\n");
         do {
-            System.out.println("Enter sum(exit to cancel)");
             str = in.next();
             if (Pattern.matches(Constants.PATTERN_DOUBLE, str)) {
                 bigDecimal = new BigDecimal(str);
                 break;
             }
+            System.out.println("Invalid input!");
+            return;
         } while (!"exit".equals(str));
         transactionManager.doTransaction(accountFrom, accountTo, bigDecimal);
     }

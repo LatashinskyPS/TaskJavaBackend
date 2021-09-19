@@ -4,6 +4,7 @@ import by.latashinsky.entities.Account;
 import by.latashinsky.entities.Transaction;
 import by.latashinsky.entities.User;
 import by.latashinsky.factory.RepositoryFactory;
+import by.latashinsky.fix.FixInput;
 import by.latashinsky.models.Constants;
 import by.latashinsky.models.MyListConverter;
 import by.latashinsky.repositories.TransactionRepository;
@@ -26,10 +27,10 @@ public class UserTransactionsController implements Controller {
         return userTransactionsController;
     }
 
-    private final TransactionRepository transactionRepository = TransactionRepository.getInstance();
-    private final RepositoryFactory repositoryFactory = new RepositoryFactory();
-
     public boolean attemptToExecuteTheCommand(String s, User user) {
+        if (s == null) {
+            s = "help";
+        }
         switch (s.toLowerCase(Locale.ROOT)) {
             case "exit" -> {
                 return true;
@@ -65,10 +66,9 @@ public class UserTransactionsController implements Controller {
     public void filter(User user) {
         SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
         String str;
-        Scanner in = new Scanner(System.in).useDelimiter("\n");
+        FixInput in = FixInput.getInstance();
         List<Transaction> transactions = findTransactions(user);
         while (true) {
-            System.out.println("Enter max date(exit to cancel):");
             str = in.next();
             if (Pattern.matches(Constants.PATTERN_DATE, str)) {
                 Date date = null;
@@ -83,9 +83,9 @@ public class UserTransactionsController implements Controller {
             }
             if ("exit".equals(str)) return;
             System.out.println("Invalid input!");
+            return;
         }
         while (true) {
-            System.out.println("Enter mid date(exit to cancel):");
             str = in.next();
             if (Pattern.matches(Constants.PATTERN_DATE, str)) {
                 Date date = null;
@@ -100,6 +100,7 @@ public class UserTransactionsController implements Controller {
             }
             if ("exit".equals(str)) return;
             System.out.println("Invalid input!");
+            return;
         }
         if(transactions.isEmpty()){
             System.out.println("Can't to find.");

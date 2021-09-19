@@ -11,7 +11,6 @@ CREATE TABLE `banks` (
   `legal_commission` decimal(4,2) NOT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `id_UNIQUE` (`id`),
-  UNIQUE KEY `banks_name_uindex` (`name`)
 ) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 CREATE TABLE `accounts` (
   `id` int NOT NULL AUTO_INCREMENT,

@@ -1,5 +1,6 @@
 package by.latashinsky.entities;
 
+import by.latashinsky.fix.FixInput;
 import by.latashinsky.models.Constants;
 
 import javax.persistence.*;
@@ -69,18 +70,20 @@ public class Bank {
         this.id = id;
     }
 
-    public void editName() {
-        Scanner in = new Scanner(System.in).useDelimiter("\n");
+    public boolean editName() {
+        FixInput in = FixInput.getInstance();
         while (true) {
-            System.out.print("Enter name:");
             String str = in.next();
+            if(str==null)return false;
             if (str.length() <= 45 && str.length() >= 3) {
                 this.setName(str);
                 break;
             } else {
                 System.out.println("Invalid input.");
+                return false;
             }
         }
+        return true;
     }
 
     @Override
@@ -96,32 +99,34 @@ public class Bank {
         return Objects.hash(id);
     }
 
-    public void editUsualCommission() {
-        Scanner in = new Scanner(System.in).useDelimiter("\n");
+    public boolean editUsualCommission() {
+        FixInput in = FixInput.getInstance();
         while (true) {
-            System.out.print("Enter usual commission:");
             String str = in.next();
+            if(str==null)return false;
             if (Pattern.matches(Constants.PATTERN_DOUBLE, str) && Double.parseDouble(str) < 100) {
-                System.out.println(str);
                 this.setUsualCommission(new BigDecimal(str));
                 break;
             } else {
                 System.out.println("Invalid input.");
+                return false;
             }
         }
+        return true;
     }
-    public void editLegalCommission() {
-        Scanner in = new Scanner(System.in).useDelimiter("\n");
+    public boolean editLegalCommission() {
+        FixInput in = FixInput.getInstance();
         while (true) {
-            System.out.print("Enter legal commission:");
             String str = in.next();
+            if(str==null)return false;
             if (Pattern.matches(Constants.PATTERN_DOUBLE, str) && Double.parseDouble(str) < 100) {
                 this.setLegalCommission(new BigDecimal(str));
                 break;
             } else {
                 System.out.println("Invalid input.");
+                return false;
             }
         }
-
+        return true;
     }
 }

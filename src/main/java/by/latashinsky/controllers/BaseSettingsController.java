@@ -9,6 +9,9 @@ import java.util.Scanner;
 public abstract class BaseSettingsController<T> implements Controller {
 
     public boolean attemptToExecuteTheCommand(String s, T t) {
+        if (s == null) {
+            s = "help";
+        }
         switch (s.toLowerCase(Locale.ROOT)) {
             case "exit" -> {
                 return true;

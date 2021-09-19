@@ -7,8 +7,6 @@ import by.latashinsky.repositories.MyRepository;
 import by.latashinsky.user.interfaces.UserSettingsUI;
 import by.latashinsky.utils.SelectHelpUtil;
 
-import java.util.Scanner;
-
 public class UserController extends BaseShowAndCreateController<User> {
     private static UserController userController;
     MyRepository<User> userRepository = (MyRepository<User>) new RepositoryFactory().getRepository(User.class);
@@ -25,16 +23,18 @@ public class UserController extends BaseShowAndCreateController<User> {
 
     @Override
     void show() {
-            System.out.print(MyListConverter.convert(userRepository.findAll()));
+        System.out.print(MyListConverter.convert(userRepository.findAll()));
     }
 
     @Override
     public void create() {
-        Scanner in = new Scanner(System.in).useDelimiter("\n");
         User user = new User();
-        user.editName();
-        user.editUserType();
-        userRepository.save(user);
+        if (user.editName() &&
+                user.editUserType()) {
+            userRepository.save(user);
+        } else {
+            System.out.println("Invalid input!(name usertype(1-to legal.2-to usual)");
+        }
     }
 
     @Override

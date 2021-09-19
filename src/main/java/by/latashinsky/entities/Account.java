@@ -1,6 +1,7 @@
 package by.latashinsky.entities;
 
 import by.latashinsky.factory.RepositoryFactory;
+import by.latashinsky.fix.FixInput;
 import by.latashinsky.models.Constants;
 import by.latashinsky.repositories.MyRepository;
 import by.latashinsky.user.interfaces.BankSettingsUI;
@@ -89,10 +90,9 @@ public class Account {
     private BigDecimal balance;
 
     public boolean editBalance() {
-        Scanner in = new Scanner(System.in).useDelimiter("\n");
+        FixInput in = FixInput.getInstance();
         String str;
         while (true) {
-            System.out.print("Enter value of balance(exit to return to menu):");
             str = in.next();
             if (Pattern.matches(Constants.PATTERN_DOUBLE, str)) {
                 this.balance = new BigDecimal(str);
@@ -102,16 +102,16 @@ public class Account {
                 return false;
             }
             System.out.println("Invalid input!");
+            return false;
         }
     }
 
     private String currency;
 
     public boolean editCurrency() {
-        Scanner in = new Scanner(System.in).useDelimiter("\n");
+        FixInput in = FixInput.getInstance();
         String str;
         while (true) {
-            System.out.print("Enter value of balance(exit to return to menu):");
             str = in.next();
             if (str.length() < 4) {
                 this.currency = str;
@@ -121,6 +121,7 @@ public class Account {
                 return false;
             }
             System.out.println("Invalid input!");
+            return false;
         }
     }
 

@@ -2,6 +2,7 @@ package by.latashinsky.controllers;
 
 import by.latashinsky.entities.User;
 import by.latashinsky.factory.RepositoryFactory;
+import by.latashinsky.fix.FixInput;
 import by.latashinsky.repositories.MyRepository;
 import by.latashinsky.repositories.UserRepository;
 import by.latashinsky.utils.Confirms;
@@ -24,9 +25,7 @@ public class UserSettingsController extends BaseSettingsController<User> {
 
     @Override
     public void update(User user) {
-        System.out.println(user);
-        Scanner in = new Scanner(System.in).useDelimiter("\n");
-        System.out.println("Are you want to edit user name(y/n)?");
+        FixInput in = FixInput.getInstance();
         String str;
         while (true) {
             str = in.next();
@@ -37,8 +36,9 @@ public class UserSettingsController extends BaseSettingsController<User> {
                 user.editName();
                 break;
             }
+            System.out.println("Invalid input!");
+            return;
         }
-        System.out.println("Are you want to edit user type(y/n)?");
         while (true) {
             str = in.next();
             if ("n".equals(str)) {
@@ -48,6 +48,8 @@ public class UserSettingsController extends BaseSettingsController<User> {
                 user.editUserType();
                 break;
             }
+            System.out.println("Invalid input!");
+            return;
         }
         myRepository.save(user);
     }

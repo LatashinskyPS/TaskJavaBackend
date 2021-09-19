@@ -3,10 +3,10 @@ package by.latashinsky.controllers;
 import by.latashinsky.entities.Account;
 import by.latashinsky.entities.Bank;
 import by.latashinsky.factory.RepositoryFactory;
+import by.latashinsky.fix.FixInput;
 import by.latashinsky.repositories.MyRepository;
 import by.latashinsky.utils.Confirms;
 
-import java.util.Scanner;
 
 public class AccountSettingsController extends BaseSettingsController<Account> {
     private static AccountSettingsController accountSettingsController;
@@ -23,9 +23,7 @@ public class AccountSettingsController extends BaseSettingsController<Account> {
     }
     @Override
     public void update(Account account) {
-        System.out.println(account);
-        System.out.println("Are you want to edit bank(y/n)?");
-        Scanner in = new Scanner(System.in).useDelimiter("\n");
+        FixInput in = FixInput.getInstance();
         String str;
         while (true) {
             str = in.next();
@@ -36,9 +34,10 @@ public class AccountSettingsController extends BaseSettingsController<Account> {
                 account.editBank();
                 break;
             }
+            System.out.println("Invalid input!");
+            return;
         }
         while (true) {
-            System.out.println("Are you want to user(y/n)?");
             str = in.next();
             if ("n".equals(str)) {
                 break;
@@ -47,9 +46,10 @@ public class AccountSettingsController extends BaseSettingsController<Account> {
                 account.editUser();
                 break;
             }
+            System.out.println("Invalid input!");
+            return;
         }
         while (true) {
-            System.out.println("Are you want to balance(y/n)?");
             str = in.next();
             if ("n".equals(str)) {
                 break;
@@ -58,9 +58,10 @@ public class AccountSettingsController extends BaseSettingsController<Account> {
                 account.editBalance();
                 break;
             }
+            System.out.println("Invalid input!");
+            return;
         }
         while (true) {
-            System.out.println("Are you want to currency(y/n)?");
             str = in.next();
             if ("n".equals(str)) {
                 break;
@@ -69,6 +70,8 @@ public class AccountSettingsController extends BaseSettingsController<Account> {
                 account.editCurrency();
                 break;
             }
+            System.out.println("Invalid input!");
+            return;
         }
         myRepository.save(account);
     }

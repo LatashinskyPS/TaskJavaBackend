@@ -1,5 +1,6 @@
 package by.latashinsky.entities;
 
+import by.latashinsky.fix.FixInput;
 import by.latashinsky.models.Constants;
 import by.latashinsky.models.MyListConverter;
 import by.latashinsky.user.interfaces.BankSettingsUI;
@@ -64,38 +65,37 @@ public class User {
         this.userType = userType;
     }
 
-    public void editName() {
-        Scanner in = new Scanner(System.in).useDelimiter("\n");
+    public boolean editName() {
+        FixInput in = FixInput.getInstance();
         while (true) {
-            System.out.print("Enter user name:");
             String str = in.next();
             if (str.length() <= 45 && str.length() >= 3) {
                 this.setName(str);
-                break;
+                return true;
             } else {
                 System.out.println("Invalid input.");
+                return false;
             }
         }
     }
 
-    public void editUserType() {
-        System.out.println("Types:\n1)Legal\n2)Usual");
-        Scanner in = new Scanner(System.in).useDelimiter("\n");
+    public boolean editUserType() {
+        FixInput in = FixInput.getInstance();
         while (true) {
-            System.out.println("Enter number of type:");
             String str = in.next();
             if (Pattern.matches(Constants.PATTERN_INT, str)) {
                 int index = Integer.parseInt(str);
                 if (index == 1) {
                     this.setUserType(UserTypes.LEGAL);
-                    return;
+                    return true;
                 }
                 if(index==2){
                     this.setUserType(UserTypes.USUAL);
-                    return;
+                    return true;
                 }
             }
             System.out.println("Invalid input!");
+            return false;
         }
     }
 }

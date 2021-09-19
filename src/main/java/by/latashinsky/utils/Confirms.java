@@ -1,11 +1,12 @@
 package by.latashinsky.utils;
 
+import by.latashinsky.fix.FixInput;
+
 import java.util.Scanner;
 
 public class Confirms {
     public static boolean confirm() {
-        Scanner in = new Scanner(System.in).useDelimiter("\n");
-        System.out.println("Are you want to delete(y/n)?");
+        FixInput in = FixInput.getInstance();
         String str;
         while (true) {
             str = in.next();
@@ -15,6 +16,8 @@ public class Confirms {
             if ("y".equals(str)) {
                 return true;
             }
+            System.out.println("Invalid input!");
+            return false;
         }
         return false;
     }

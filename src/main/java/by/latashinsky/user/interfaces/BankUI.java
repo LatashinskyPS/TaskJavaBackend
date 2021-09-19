@@ -1,21 +1,14 @@
 package by.latashinsky.user.interfaces;
 
 import by.latashinsky.controllers.BankController;
-import by.latashinsky.controllers.CommandController;
-
-import java.util.Scanner;
+import by.latashinsky.fix.FixInput;
 
 public class BankUI {
     static BankController bankController = BankController.getInstance();
-    static Scanner in = new Scanner(System.in).useDelimiter("\n");
+    static FixInput in = FixInput.getInstance();
 
     public static void run() {
-        while (true) {
-            System.out.print("/banks>>");
-            String command = in.next();
-            if (bankController.attemptToExecuteTheCommand(command)) {
-                break;
-            }
-        }
+        String command = in.next();
+        bankController.attemptToExecuteTheCommand(command);
     }
 }
