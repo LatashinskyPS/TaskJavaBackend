@@ -22,7 +22,7 @@ public class HibernateSessionFactory {
     private static SessionFactory getNewSessionFactory() {
         String rootPath = Objects.requireNonNull(
                 Thread.currentThread().getContextClassLoader().getResource("")).getPath();
-        String appConfigPath = rootPath + "MyProperties.properties";
+        String appConfigPath = rootPath + "мyProperties.properties";
         Properties properties = new Properties();
         try {
             properties.load(new FileInputStream(appConfigPath));

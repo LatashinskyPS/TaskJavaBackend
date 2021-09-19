@@ -1,13 +1,14 @@
-package by.latashinsky.controllers;
+package by.latashinsky.utils;
 
+import by.latashinsky.controllers.BankController;
 import by.latashinsky.entities.Bank;
 import by.latashinsky.fix.FixInput;
 import by.latashinsky.repositories.BankRepository;
 import org.junit.Assert;
 import org.junit.Test;
 
-class BankControllerTest {
-    @Test
+public class BankControllerTest {
+
     public void create() {
         FixInput in = FixInput.getInstance();
         BankController bankController = BankController.getInstance();
@@ -16,6 +17,6 @@ class BankControllerTest {
         bankController.create();
         Bank bank = bankRepository.findByName("testCreate");
         Assert.assertNotNull(bank);
-        Assert.assertEquals("testCreate", bank.getName());
+        Assert.assertEquals("testCreate",bank.getName() );
     }
 }
