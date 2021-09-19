@@ -4,6 +4,7 @@ import by.latashinsky.HibernateSessionFactory;
 import by.latashinsky.entities.Bank;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+import org.hibernate.query.Query;
 
 import java.util.List;
 
@@ -20,6 +21,17 @@ public class BankRepository implements MyRepository<Bank> {
             bankRepository = new BankRepository();
         }
         return bankRepository;
+    }
+
+    public Bank findByName(String name) {
+        Session session = sessionFactory.getCurrentSession();
+        session.beginTransaction();
+        Query<Bank> query = session.createQuery("from Bank b where b.name= :1");
+        query.setParameter(1, name);
+        Bank bank = query.getSingleResult();
+        session.getTransaction().commit();
+        session.close();
+        return bank;
     }
 
     @Override
